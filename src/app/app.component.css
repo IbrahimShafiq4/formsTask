@@ -1,0 +1,13 @@
+input.ng-invalid.ng-touched {
+    border: 0.5px solid rgba(255, 0, 0, .25);
+    box-shadow: 0 0 0 .25rem rgba(255, 0, 0, .25);
+}
+
+input.ng-pending {
+    border: 0.5px solid rgba(255, 255, 0, .9);
+    box-shadow: 0 0 0 .25rem rgba(255, 255, 0, .9);
+}
+
+button.disabledBtn {
+    cursor: not-allowed
+}

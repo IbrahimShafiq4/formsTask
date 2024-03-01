@@ -1,0 +1,75 @@
+<div class="container py-5">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div class="form-group my-2">
+          <label class="mb-2 fw-bold fs-5" for="name">Project Name</label>
+          <input type="text" id="name" formControlName="projectName" class="form-control" />
+        </div>
+
+        @if (!signupForm.get('projectName')?.valid && signupForm.get('projectName')?.touched) {
+        <div class="errorMessage">
+          @if (signupForm.get('projectName')?.getError('required')) {
+          <p class="badge text-bg-danger"> Project Name is Required </p>
+          } @else if(signupForm.get('projectName')?.getError('minlength')) {
+          <p class="badge text-bg-danger"> Project Name Min Length is 3 </p>
+          } @else if(signupForm.get('projectName')?.getError('forbiddenProjName')) {
+            <p class="badge text-bg-danger"> Project Name is Forbidden </p>
+            }
+        </div>
+        }
+
+        <div class="form-group my-2">
+          <label class="mb-2 fw-bold fs-5" for="email">Email</label>
+          <input type="text" id="email" formControlName="email" class="form-control" />
+        </div>
+
+        @if (!signupForm.get('email')?.valid && signupForm.get('email')?.touched) {
+        <div class="errorMessage">
+          @if (signupForm.get('email')?.getError('required')) {
+          <p class="badge text-bg-danger"> Email is Required </p>
+          } @else if(signupForm.get('email')?.getError('email')) {
+          <p class="badge text-bg-danger"> Please Enter A valid Email! </p>
+          } @else if (signupForm.get('email')?.pending) {
+          <p class="badge text-bg-warning">Pending</p>
+          } @else if (signupForm.get('email')?.getError('emailIsForbidden')) {
+          <p class="badge text-bg-info">Email Is Forbidden</p>
+          }
+        </div>
+        }
+
+        <div class="form-group my-2">
+          <label for="status" class="mb-2 fw-bold fs-5">Project Status</label>
+          <select class="form-control" id="status" formControlName="projectStatus">
+            <option [value]="'stable'">Stable</option>
+            <option [value]="'critical'">Critical</option>
+            <option [value]="'finished'">Finished</option>
+          </select>
+        </div>
+
+        <button 
+          type="submit" 
+          class="btn btn-primary my-4"
+          [disabled]="signupForm.invalid"
+          [ngClass]="{'disabledBtn': signupForm.invalid}"
+        >Submit</button>
+        <hr>
+      </form>
+
+      @if (submitted) {
+        <div>
+          <p class="fs-3 fw-bolder">
+            Project Name <span class="text-info fs-5 fw-semibold">{{ project.projectName }}</span>
+          </p>
+          <p class="fs-3 fw-bolder">
+            Project Email <span class="text-info fs-5 fw-semibold">{{ project.projectEmail }}</span>
+          </p>
+          <p class="fs-3 fw-bolder">
+            Project Status <span class="text-info fs-5 fw-semibold">{{ project.projectStatus }}</span>
+          </p>
+        </div>
+      }
+
+    </div>
+  </div>
+</div>
